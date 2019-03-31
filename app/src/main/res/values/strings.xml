@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">photoApp</string>
+    <string name="cannotopencamera">Cannot use the camera without permisson</string>
 </resources>

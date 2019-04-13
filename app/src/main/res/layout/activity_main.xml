@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <ImageView
-        android:id="@+id/img"
+        android:id="@+id/imgPicture"
         android:layout_width="match_parent"
         android:layout_height="550dp"
         android:scaleType="center"/>
@@ -16,9 +16,21 @@
         android:id="@+id/btn1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/img"
+        android:layout_below="@id/imgPicture"
+        android:padding="16dp"
         android:onClick="btnTakePhotoClicked"
-        android:text="Take photo and save"
+        android:text="@string/take_photo_and_save"
+        android:textAllCaps="true"/>
+
+    <Button
+        android:id="@+id/btn2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/btn1"
+        android:layout_below="@id/imgPicture"
+        android:padding="16dp"
+        android:onClick="btnOpenGalleryClicked"
+        android:text="@string/open_image_from_the_gallery"
         android:textAllCaps="true"/>
 
     <!--<Button-->

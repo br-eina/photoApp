@@ -3,4 +3,5 @@
     <string name="cannotopencamera">Cannot use the camera without permisson</string>
     <string name="open_image_from_the_gallery">Open image from the gallery</string>
     <string name="take_photo_and_save">Take photo and save</string>
+    <string name="rotate_the_image">Rotate the image</string>
 </resources>

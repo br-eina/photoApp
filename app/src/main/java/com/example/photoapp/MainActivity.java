@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -136,7 +138,10 @@ public class MainActivity extends AppCompatActivity {
                     // get a bitmap from the stream
                     Bitmap image = BitmapFactory.decodeStream(inputStream);
 
+                    //rotateBitmap(image);
+
                     // show the image to the user
+
                     imgPicture.setImageBitmap(image);
 
 
@@ -154,6 +159,38 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    public void btnRotate(View view) {
+
+        Bitmap bm=((BitmapDrawable)imgPicture.getDrawable()).getBitmap();
+
+        imgPicture.setImageBitmap(rotateBitmap(bm));
+
+
+
+    }
+
+    private Bitmap rotateBitmap(Bitmap bInput) {
+
+
+        float degrees = 90;
+        Matrix matrix = new Matrix();
+        matrix.setRotate(degrees);
+        Bitmap bOutput = Bitmap.createBitmap(bInput, 0, 0, bInput.getWidth(), bInput.getHeight(), matrix, true);
+
+        return bOutput;
+    }
+
+
+
+
+
+
+//    Bitmap bInput/*your input bitmap*/, bOutput;
+//    float degrees = 45;//rotation degree
+//    Matrix matrix = new Matrix();
+//matrix.setRotate(degrees);
+//    bOutput = Bitmap.createBitmap(bInput, 0, 0, bInput.getWidth(), bInput.getHeight(), matrix, true);
 
 
 

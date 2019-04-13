@@ -10,7 +10,8 @@
         android:id="@+id/imgPicture"
         android:layout_width="match_parent"
         android:layout_height="550dp"
-        android:scaleType="center"/>
+
+        />
 
     <Button
         android:id="@+id/btn1"
@@ -31,6 +32,15 @@
         android:padding="16dp"
         android:onClick="btnOpenGalleryClicked"
         android:text="@string/open_image_from_the_gallery"
+        android:textAllCaps="true"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn1"
+        android:padding="16dp"
+        android:onClick="btnRotate"
+        android:text="@string/rotate_the_image"
         android:textAllCaps="true"/>
 
     <!--<Button-->

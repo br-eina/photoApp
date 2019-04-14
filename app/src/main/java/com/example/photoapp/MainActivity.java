@@ -3,6 +3,7 @@ package com.example.photoapp;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -17,11 +18,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import id.zelory.compressor.Compressor;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,7 +35,11 @@ public class MainActivity extends AppCompatActivity {
     public static final int CAMERA_PERMISSION_REQUEST_CODE = 1337;
     public static final int IMAGE_GALLERY_REQUEST = 11;
     Integer ff;
+    Integer ffds;
+    Integer fdfaa;
     private ImageView imgPicture;
+    private Bitmap bitmap1;
+    private Bitmap compressedBitmap;
 
 
     @Override
@@ -181,6 +191,86 @@ public class MainActivity extends AppCompatActivity {
         return bOutput;
     }
 
+    public String getURLForResource (int resourceId) {
+        return Uri.parse("android.resource://"+R.class.getPackage().getName()+"/" +resourceId).toString();
+    }
+
+    public void btnCompress(View view) {
+
+       // bitmap1 = BitmapFactory.decodeResource(getResources(), R.drawable.to_be_aligned);
+
+
+       // byte[] bytes = null;
+      //  bytes = getBytesFromBitmap(bitmap1, 50);
+
+       // compressedBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+
+
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeResource(getResources(), R.drawable.to_be_aligned, options);
+        int imageHeight = options.outHeight;
+        int imageWidth = options.outWidth;
+        String imageType = options.outMimeType;
+
+        imgPicture.setImageBitmap(
+                decodeSampledBitmapFromResource(getResources(), R.drawable.to_be_aligned, 350, 550));
+
+    }
+
+
+    public static byte[] getBytesFromBitmap(Bitmap bitmap, int quality) {
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, quality, stream);
+        return stream.toByteArray();
+
+    }
+
+
+    public static int calculateInSampleSize(
+            BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+
+            final int halfHeight = height / 2;
+            final int halfWidth = width / 2;
+
+            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+            // height and width larger than the requested height and width.
+            while ((halfHeight / inSampleSize) >= reqHeight
+                    && (halfWidth / inSampleSize) >= reqWidth) {
+                inSampleSize *= 2;
+            }
+        }
+
+        return inSampleSize;
+    }
+
+
+    public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
+                                                         int reqWidth, int reqHeight) {
+
+        // First decode with inJustDecodeBounds=true to check dimensions
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeResource(res, resId, options);
+
+        // Calculate inSampleSize
+        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeResource(res, resId, options);
+    }
+
+
+
 
 
 
@@ -256,3 +346,41 @@ public class MainActivity extends AppCompatActivity {
 //        return "photo22" + timeStamp + ".jpg";
 //
 //    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    String imageUrl = getURLForResource(R.drawable.to_be_aligned);
+//
+//    File imageFile = new File(imageUrl);
+//    FileInputStream fis = null;
+//
+//        try {
+//                fis = new FileInputStream(imagefile);
+//                } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//                }
+//
+//
+//
+//
+//                bitmap1 = BitmapFactory.decodeResource(getResources(), R.drawable.to_be_aligned);
+//
+//                compressedBitmap = new Compressor(this).compressToBitmap(imageFile);

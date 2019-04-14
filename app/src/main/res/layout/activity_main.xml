@@ -8,7 +8,7 @@
 
     <ImageView
         android:id="@+id/imgPicture"
-        android:layout_width="match_parent"
+        android:layout_width="350dp"
         android:layout_height="550dp"
 
         />
@@ -35,12 +35,23 @@
         android:textAllCaps="true"/>
 
     <Button
+        android:id="@+id/btn3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/btn1"
         android:padding="16dp"
         android:onClick="btnRotate"
         android:text="@string/rotate_the_image"
+        android:textAllCaps="true"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/btn3"
+        android:layout_below="@id/btn2"
+        android:padding="16dp"
+        android:onClick="btnCompress"
+        android:text="@string/compress"
         android:textAllCaps="true"/>
 
     <!--<Button-->

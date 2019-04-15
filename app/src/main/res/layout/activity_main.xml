@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/imgPicture"
         android:layout_width="350dp"
-        android:layout_height="550dp"
+        android:layout_height="500dp"
 
         />
 
@@ -45,22 +45,51 @@
         android:textAllCaps="true"/>
 
     <Button
+        android:id="@+id/btn4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/btn3"
         android:layout_below="@id/btn2"
         android:padding="16dp"
-        android:onClick="btnCompress"
-        android:text="@string/compress"
+        android:onClick="btnShowIm"
+        android:text="@string/show_im"
         android:textAllCaps="true"/>
 
+    <Button
+        android:id="@+id/btn5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/btn4"
+        android:layout_below="@id/btn2"
+        android:padding="16dp"
+        android:onClick="btnSave"
+        android:text="@string/save"
+        android:textAllCaps="true"/>
+
+    <Button
+        android:id="@+id/btn6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn3"
+        android:padding="16dp"
+        android:onClick="btnPicasso"
+        android:text="@string/picasso"
+        android:textAllCaps="true" />
+
+
+
+
+
     <!--<Button-->
-        <!--android:id="@+id/btn2"-->
+        <!--android:id="@+id/btn6"-->
         <!--android:layout_width="wrap_content"-->
         <!--android:layout_height="wrap_content"-->
-        <!--android:layout_below="@id/img"-->
-        <!--android:layout_toRightOf="@id/btn1"-->
-        <!--android:text="Save"-->
+        <!--android:layout_below="@id/btn3"-->
+        <!--android:padding="16dp"-->
+        <!--android:onClick="btnCompress"-->
+        <!--android:text="Compress"-->
         <!--android:textAllCaps="true"/>-->
+
+
 
 </RelativeLayout>

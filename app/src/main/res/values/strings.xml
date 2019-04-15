@@ -5,4 +5,7 @@
     <string name="take_photo_and_save">Take photo and save</string>
     <string name="rotate_the_image">Rotate the image</string>
     <string name="compress">Compress</string>
+    <string name="save">Save</string>
+    <string name="show_im">Show im</string>
+    <string name="picasso">Picasso</string>
 </resources>

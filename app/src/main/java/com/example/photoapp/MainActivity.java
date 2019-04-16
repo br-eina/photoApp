@@ -211,9 +211,18 @@ public class MainActivity extends AppCompatActivity {
 //                    String filePath = split[1];
 //
 //                    File ffile = new File(filePath);
+                    int width;
+                    int height;
+                    if (image.getWidth() > image.getHeight()) {
+                        width = 1920;
+                        height = 1444;
+                    } else {
+                        width = 1444;
+                        height = 1920;
+                    }
                     Picasso.get()
                             .load(imageUri)
-                            .resize(1444, 1920)
+                            .resize(width, height)  //Todo: take size from bitmap and scale with ratio
                             //.centerInside()
                             .into(imgPicture);
 
@@ -360,7 +369,7 @@ public class MainActivity extends AppCompatActivity {
         myDir.mkdirs();
 
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String fname = "Shutta_"+ timeStamp +".jpg";
+        String fname = "IMG_"+ timeStamp +".jpg";
 
         File file = new File(myDir, fname);
         if (file.exists()) file.delete ();

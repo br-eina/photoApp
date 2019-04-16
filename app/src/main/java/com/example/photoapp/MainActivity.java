@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     Integer ff;
     String sfsfsf;
     String faff;
+    String hfhfhf;
 
 
     private ImageView imgPicture;

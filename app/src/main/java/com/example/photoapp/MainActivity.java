@@ -23,6 +23,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.photoapp.Helper.BitmapHelper;
 import com.iceteck.silicompressorr.SiliCompressor;
 import com.squareup.picasso.Picasso;
 
@@ -86,6 +87,32 @@ public class MainActivity extends AppCompatActivity {
 
         Bitmap bitmap = ((BitmapDrawable)imgPicture.getDrawable()).getBitmap();
         saveTempBitmap(bitmap);
+
+
+
+    }
+
+
+    public void btnSend(View view) {
+
+
+
+        Bitmap bitmap = ((BitmapDrawable)imgPicture.getDrawable()).getBitmap();
+
+        BitmapHelper.getInstance().setBitmap(bitmap);
+
+        if (BitmapHelper.getInstance().getBitmap() == null) {
+
+            Toast.makeText(this, "Bitmap is null", Toast.LENGTH_LONG).show();
+
+        } else {
+
+            Intent intent = new Intent(this, postGet.class);
+            startActivity(intent);
+
+        }
+
+        //intent.putExtra("BitmapImage", bitmap);
 
 
 

@@ -51,6 +51,13 @@
 
         </LinearLayout>
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/send_back"
+            android:textAllCaps="true"
+            android:onClick="sendBack"/>
+
         <TextView
             android:id="@+id/text_err_result"
             android:layout_width="wrap_content"

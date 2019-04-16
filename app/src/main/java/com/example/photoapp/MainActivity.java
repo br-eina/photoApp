@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
         Bitmap bitmap = ((BitmapDrawable)imgPicture.getDrawable()).getBitmap();
         saveTempBitmap(bitmap);
+        Toast.makeText(this, "Image saved", Toast.LENGTH_LONG).show();
 
 
 
@@ -115,9 +116,15 @@ public class MainActivity extends AppCompatActivity {
 
         //intent.putExtra("BitmapImage", bitmap);
 
+    }
 
+
+    public void showProcessed(View view) {
+
+        imgPicture.setImageBitmap(BitmapHelper.getInstance().getBitmap());
 
     }
+
 
     public void btnPicasso(View view) {
 

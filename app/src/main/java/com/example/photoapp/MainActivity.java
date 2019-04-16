@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
     public static final int IMAGE_GALLERY_REQUEST = 11;
     public static final int SAVE_TO_STORAGE_REQUEST_CODE = 2133;
     Integer ff;
+    String sfsfsf;
+    String faff;
 
 
     private ImageView imgPicture;
@@ -202,9 +204,27 @@ public class MainActivity extends AppCompatActivity {
 
                     //rotateBitmap(image);
 
+                    // GET THE FILE PATH FROM URI (WORKING ONLY IN OREO)
+
+//                    File file = new File(imageUri.getPath());
+//                    final String[] split = file.getPath().split(":");
+//                    String filePath = split[1];
+//
+//                    File ffile = new File(filePath);
+                    Picasso.get()
+                            .load(imageUri)
+                            .resize(1444, 1920)
+                            //.centerInside()
+                            .into(imgPicture);
+
+
+
+
+
+
                     // show the image to the user
 
-                    imgPicture.setImageBitmap(image);
+//                    imgPicture.setImageBitmap(image);
 
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
@@ -216,6 +236,21 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
+
+
+
+
+
+
+
 
     public void btnRotate(View view) {
 
@@ -331,7 +366,7 @@ public class MainActivity extends AppCompatActivity {
         if (file.exists()) file.delete ();
         try {
             FileOutputStream out = new FileOutputStream(file);
-            finalBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            finalBitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
             out.flush();
             out.close();
         } catch (Exception e) {

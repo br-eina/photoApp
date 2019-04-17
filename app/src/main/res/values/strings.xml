@@ -1,6 +1,7 @@
 <resources>
+
     <string name="app_name">photoApp</string>
-    <string name="cannotopencamera">Cannot use the camera without permisson</string>
+    <string name="cannotopencamera">Cannot use the camera without permission</string>
     <string name="open_image_from_the_gallery">Open gallery</string>
     <string name="take_photo_and_save">Take photo and save</string>
     <string name="rotate_the_image">Rotate the image</string>
@@ -14,4 +15,10 @@
     <string name="initiate_processing">Initiate processing</string>
     <string name="send_back">Send back</string>
     <string name="x">X</string>
+    <string name="pos_get_request">Post and get requests</string>
+    <string name="response">Code: %1$s</string>
+    <string name="response_is_null">Response body is NULL</string>
+    <string name="displaying_image">Displaying image</string>
+    <string name="displaying_selected_image">Displaying selected image</string>
+
 </resources>

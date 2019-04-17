@@ -1,16 +1,13 @@
 package com.example.photoapp;
 
 import android.Manifest;
-import android.content.Context;
-import android.content.ContextWrapper;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
-import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -18,45 +15,23 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.example.photoapp.Helper.BitmapHelper;
-import com.iceteck.silicompressorr.SiliCompressor;
 import com.squareup.picasso.Picasso;
-
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Random;
-
-import id.zelory.compressor.Compressor;
 
 public class MainActivity extends AppCompatActivity {
-
     public static final int CAMERA_REQUEST_CODE = 322;
     public static final int CAMERA_PERMISSION_REQUEST_CODE = 1337;
     public static final int IMAGE_GALLERY_REQUEST = 11;
-    public static final int SAVE_TO_STORAGE_REQUEST_CODE = 2133;
-    Integer ff;
-    String sfsfsf;
-    String faff;
-    String hfhfhf;
-
-
     private ImageView imgPicture;
-    private Bitmap bitmap1;
-    private Bitmap compressedBitmap;
-    private Bitmap largeBitmap;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,14 +40,9 @@ public class MainActivity extends AppCompatActivity {
 
         // get a reference to the image view
         imgPicture = findViewById(R.id.imgPicture);
-        largeBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.to_be_aligned);
-
     }
 
-    /**
-     * This method will be called when the Take Photo button is clicked
-     * @param view
-     */
+
     public void btnTakePhotoClicked(View view) {
         if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
             invokeCamera();
@@ -84,63 +54,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void btnSave(View view) {
-
-
         Bitmap bitmap = ((BitmapDrawable)imgPicture.getDrawable()).getBitmap();
         saveTempBitmap(bitmap);
         Toast.makeText(this, "Image saved", Toast.LENGTH_LONG).show();
-
-
-
     }
 
 
     public void btnSend(View view) {
-
-
-
         Bitmap bitmap = ((BitmapDrawable)imgPicture.getDrawable()).getBitmap();
-
         BitmapHelper.getInstance().setBitmap(bitmap);
 
         if (BitmapHelper.getInstance().getBitmap() == null) {
-
             Toast.makeText(this, "Bitmap is null", Toast.LENGTH_LONG).show();
-
         } else {
-
             Intent intent = new Intent(this, postGet.class);
             startActivity(intent);
-
         }
-
-        //intent.putExtra("BitmapImage", bitmap);
-
     }
-
 
     public void showProcessed(View view) {
-
         imgPicture.setImageBitmap(BitmapHelper.getInstance().getBitmap());
-
     }
-
-
-    public void btnPicasso(View view) {
-
-        String root = Environment.getExternalStorageDirectory().toString();
-        File file = new File(root + "/saved_images", "to_resize.jpg");
-        Picasso.get()
-                .load(file)
-                .resize(1444, 1920)
-                //.centerInside()
-                .into(imgPicture);
-
-
-
-    }
-
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -153,29 +87,16 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, getString(R.string.cannotopencamera), Toast.LENGTH_LONG).show();
             }
         }
-
-//        if (requestCode == SAVE_TO_STORAGE_REQUEST_CODE) {
-//            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//
-//
-//                //saveToInternalStorage(largeBitmap);
-//
-//            }
-//        }
-
     }
-
-
-
 
     private void invokeCamera() {
         // get a file reference
         Uri pictureUri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".provider", createImageFile());
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-      
         // tell the camera where to save the image
         intent.putExtra(MediaStore.EXTRA_OUTPUT, pictureUri);
+
         // tell the camera to request right permission
         intent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         startActivityForResult(intent, CAMERA_REQUEST_CODE);
@@ -185,12 +106,14 @@ public class MainActivity extends AppCompatActivity {
     private File createImageFile() {
         // the public picture directory
         File picturesDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+
         // timestamp makes an unique name
+        @SuppressLint("SimpleDateFormat")
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
         String timeStamp = sdf.format(new Date());
+
         // put together the directory and the timestamp
-        File imageFile = new File(picturesDirectory, "picture" + timeStamp + ".jpg");
-        return imageFile;
+        return new File(picturesDirectory, "picture" + timeStamp + ".jpg");
     }
 
 
@@ -209,9 +132,8 @@ public class MainActivity extends AppCompatActivity {
         // set the data and type. Get all image types
         photoPickerIntent.setDataAndType(data, "image/*");
 
-        // invoke this activity and get back smth from it
+        // invoke this activity and get back something from it
         startActivityForResult(photoPickerIntent, IMAGE_GALLERY_REQUEST);
-
     }
 
 
@@ -230,183 +152,77 @@ public class MainActivity extends AppCompatActivity {
                 // declare a stream to read the image data from the SD card
                 InputStream inputStream;
 
-                // get an input stream, based on URI of the image
-                try {
-                    inputStream = getContentResolver().openInputStream(imageUri);
+                if (imageUri != null){
+                    try {
+                        inputStream = getContentResolver().openInputStream(imageUri);
 
-                    // get a bitmap from the stream
-                    Bitmap image = BitmapFactory.decodeStream(inputStream);
+                        // get a bitmap from the stream
+                        Bitmap image = BitmapFactory.decodeStream(inputStream);
 
-                    //rotateBitmap(image);
+                        // Calculate size of bitmap
+                        int width;
+                        int height;
+                        if (image.getWidth() > image.getHeight()) {
+                            width = 1920;
+                            height = 1444;
+                        } else {
+                            width = 1444;
+                            height = 1920;
+                        }
 
-                    // GET THE FILE PATH FROM URI (WORKING ONLY IN OREO)
+                        // Displaying bitmap in ImageView
+                        Picasso.get()
+                                .load(imageUri)
+                                .resize(width, height)  //Todo: take size from bitmap and scale with ratio
+                                //.centerInside()
+                                .into(imgPicture);
 
-//                    File file = new File(imageUri.getPath());
-//                    final String[] split = file.getPath().split(":");
-//                    String filePath = split[1];
-//
-//                    File ffile = new File(filePath);
-                    int width;
-                    int height;
-                    if (image.getWidth() > image.getHeight()) {
-                        width = 1920;
-                        height = 1444;
-                    } else {
-                        width = 1444;
-                        height = 1920;
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                        // if image is unavailable
+                        Toast.makeText(this, "Unable to open the image", Toast.LENGTH_LONG).show();
                     }
-                    Picasso.get()
-                            .load(imageUri)
-                            .resize(width, height)  //Todo: take size from bitmap and scale with ratio
-                            //.centerInside()
-                            .into(imgPicture);
 
-
-
-
-
-
-                    // show the image to the user
-
-//                    imgPicture.setImageBitmap(image);
-
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                    // if image is unavailable
-                    Toast.makeText(this, "Unable to open the image", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(this, "Failed to load data", Toast.LENGTH_LONG).show();
                 }
-
             }
         }
-
     }
-
-
-    public Uri getImageUri(Context inContext, Bitmap inImage) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
-        return Uri.parse(path);
-    }
-
-
-
-
-
-
-
 
     public void btnRotate(View view) {
-
         Bitmap bm=((BitmapDrawable)imgPicture.getDrawable()).getBitmap();
-
         imgPicture.setImageBitmap(rotateBitmap(bm));
-
-
-
     }
 
     private Bitmap rotateBitmap(Bitmap bInput) {
-
-
         float degrees = 90;
         Matrix matrix = new Matrix();
         matrix.setRotate(degrees);
-        Bitmap bOutput = Bitmap.createBitmap(bInput, 0, 0, bInput.getWidth(), bInput.getHeight(), matrix, true);
-
-        return bOutput;
+        return Bitmap.createBitmap(bInput, 0, 0, bInput.getWidth(), bInput.getHeight(), matrix, true);
     }
-
-
-
-    public void btnShowIm(View view) {
-
-       // bitmap1 = BitmapFactory.decodeResource(getResources(), R.drawable.to_be_aligned);
-
-
-       // byte[] bytes = null;
-      //  bytes = getBytesFromBitmap(bitmap1, 50);
-
-       // compressedBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-
-
-
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeResource(getResources(), R.drawable.to_be_aligned, options);
-        int imageHeight = options.outHeight;
-        int imageWidth = options.outWidth;
-        String imageType = options.outMimeType;
-
-        imgPicture.setImageBitmap(
-                decodeSampledBitmapFromResource(getResources(), R.drawable.to_be_aligned, 350, 500));
-
-    }
-
-
-
-    public static int calculateInSampleSize(
-            BitmapFactory.Options options, int reqWidth, int reqHeight) {
-        // Raw height and width of image
-        final int height = options.outHeight;
-        final int width = options.outWidth;
-        int inSampleSize = 1;
-
-        if (height > reqHeight || width > reqWidth) {
-
-            final int halfHeight = height / 2;
-            final int halfWidth = width / 2;
-
-            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
-            // height and width larger than the requested height and width.
-            while ((halfHeight / inSampleSize) >= reqHeight
-                    && (halfWidth / inSampleSize) >= reqWidth) {
-                inSampleSize *= 2;
-            }
-        }
-
-        return inSampleSize;
-    }
-
-
-    public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
-                                                         int reqWidth, int reqHeight) {
-
-        // First decode with inJustDecodeBounds=true to check dimensions
-        final BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeResource(res, resId, options);
-
-        // Calculate inSampleSize
-        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
-
-        // Decode bitmap with inSampleSize set
-        options.inJustDecodeBounds = false;
-        return BitmapFactory.decodeResource(res, resId, options);
-    }
-
-
-
-
 
     public void saveTempBitmap(Bitmap bitmap) {
         if (isExternalStorageWritable()) {
             saveImage(bitmap);
         }else{
-            //prompt the user or do something
+            Toast.makeText(this, "External storage is unavailable", Toast.LENGTH_LONG).show();
         }
     }
 
+
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     private void saveImage(Bitmap finalBitmap) {
 
         String root = Environment.getExternalStorageDirectory().toString();
         File myDir = new File(root + "/saved_images");
         myDir.mkdirs();
 
+        @SuppressLint("SimpleDateFormat")
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String fname = "IMG_"+ timeStamp +".jpg";
+        String fileName = "IMG_"+ timeStamp +".jpg";
 
-        File file = new File(myDir, fname);
+        File file = new File(myDir, fileName);
         if (file.exists()) file.delete ();
         try {
             FileOutputStream out = new FileOutputStream(file);
@@ -421,19 +237,8 @@ public class MainActivity extends AppCompatActivity {
     /* Checks if external storage is available for read and write */
     public boolean isExternalStorageWritable() {
         String state = Environment.getExternalStorageState();
-        if (Environment.MEDIA_MOUNTED.equals(state)) {
-            return true;
-        }
-        return false;
+        return Environment.MEDIA_MOUNTED.equals(state);
     }
-
-
-
-
-
-
-
-
 
 }
 
@@ -453,19 +258,45 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+// GET THE FILE PATH FROM URI (WORKING ONLY IN OREO)
+//                    File file = new File(imageUri.getPath());
+//                    final String[] split = file.getPath().split(":");
+//                    String filePath = split[1];
+//
+//                    File file = new File(filePath);
 
 
 
+// OnRequestPermissionResult
+//        if (requestCode == SAVE_TO_STORAGE_REQUEST_CODE) {
+//            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//
+//
+//                //saveToInternalStorage(largeBitmap);
+//
+//            }
+//        }
 
 
 
+//public static final int SAVE_TO_STORAGE_REQUEST_CODE = 2133;
+//private Bitmap bitmap1;
+//private Bitmap compressedBitmap;
+//private Bitmap largeBitmap;
+//largeBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.to_be_aligned);
 
 
 
-
-
-
-
+//    public void btnPicasso(View view) {
+//
+//        String root = Environment.getExternalStorageDirectory().toString();
+//        File file = new File(root + "/saved_images", "to_resize.jpg");
+//        Picasso.get()
+//                .load(file)
+//                .resize(1444, 1920)
+//                //.centerInside()
+//                .into(imgPicture);
+//    }
 
 
 //    private void reducingImageSize(String path) {
@@ -491,7 +322,12 @@ public class MainActivity extends AppCompatActivity {
 //
 
 
-
+//    public Uri getImageUri(Context inContext, Bitmap inImage) {
+//        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+//        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+//        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+//        return Uri.parse(path);
+//    }
 
 
 //    public void btnCompress(View view) {
@@ -504,16 +340,6 @@ public class MainActivity extends AppCompatActivity {
 //    }
 
 
-
-
-
-
-
-
-
-
-
-
 //    Bitmap bInput/*your input bitmap*/, bOutput;
 //    float degrees = 45;//rotation degree
 //    Matrix matrix = new Matrix();
@@ -521,9 +347,29 @@ public class MainActivity extends AppCompatActivity {
 //    bOutput = Bitmap.createBitmap(bInput, 0, 0, bInput.getWidth(), bInput.getHeight(), matrix, true);
 
 
-
-
-
+//    public void btnShowIm(View view) {
+//
+//        // bitmap1 = BitmapFactory.decodeResource(getResources(), R.drawable.to_be_aligned);
+//
+//
+//        // byte[] bytes = null;
+//        //  bytes = getBytesFromBitmap(bitmap1, 50);
+//
+//        // compressedBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+//
+//
+//
+//        BitmapFactory.Options options = new BitmapFactory.Options();
+//        options.inJustDecodeBounds = true;
+//        BitmapFactory.decodeResource(getResources(), R.drawable.to_be_aligned, options);
+//        int imageHeight = options.outHeight;
+//        int imageWidth = options.outWidth;
+//        String imageType = options.outMimeType;
+//
+//        imgPicture.setImageBitmap(
+//                decodeSampledBitmapFromResource(getResources(), R.drawable.to_be_aligned, 350, 500));
+//
+//    }
 
 
 //             if we are here, everything processed successfully.
@@ -549,15 +395,17 @@ public class MainActivity extends AppCompatActivity {
 //
 //                } catch (FileNotFoundException e) {
 //                    e.printStackTrace();
-//                    // show a message to the user indictating that the image is unavailable.
+//                    // show a message to the user indicating that the image is unavailable.
 //                    Toast.makeText(this, "Unable to open image", Toast.LENGTH_LONG).show();
 //                }
 //
 //            }
 
+
 //        public static final int IMAGE_GALLERY_REQUEST = 20;
 //        private ImageView img;
 //        img = findViewById(R.id.img);
+
 
 //        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 //        File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
@@ -568,6 +416,7 @@ public class MainActivity extends AppCompatActivity {
 //        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, pictureUri);
 //        startActivityForResult(cameraIntent, CAMERA_REQUEST);
 
+
 //        private String getPictureName() {
 //        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
 //        String timeStamp = sdf.format(new Date());
@@ -576,15 +425,9 @@ public class MainActivity extends AppCompatActivity {
 //    }
 
 
-
-
-
-
 //    public String getURLForResource (int resourceId) {
 //        return Uri.parse("android.resource://"+R.class.getPackage().getName()+"/" +resourceId).toString();
 //    }
-
-
 
 
 
@@ -594,7 +437,7 @@ public class MainActivity extends AppCompatActivity {
 //    FileInputStream fis = null;
 //
 //        try {
-//                fis = new FileInputStream(imagefile);
+//                fis = new FileInputStream(imageFile);
 //                } catch (FileNotFoundException e) {
 //                e.printStackTrace();
 //                }
@@ -604,3 +447,44 @@ public class MainActivity extends AppCompatActivity {
 //                bitmap1 = BitmapFactory.decodeResource(getResources(), R.drawable.to_be_aligned);
 //
 //                compressedBitmap = new Compressor(this).compressToBitmap(imageFile);
+
+
+
+//    public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
+//                                                         int reqWidth, int reqHeight) {
+//
+//        // First decode with inJustDecodeBounds=true to check dimensions
+//        final BitmapFactory.Options options = new BitmapFactory.Options();
+//        options.inJustDecodeBounds = true;
+//        BitmapFactory.decodeResource(res, resId, options);
+//
+//        // Calculate inSampleSize
+//        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+//
+//        // Decode bitmap with inSampleSize set
+//        options.inJustDecodeBounds = false;
+//        return BitmapFactory.decodeResource(res, resId, options);
+//    }
+
+
+//    public static int calculateInSampleSize(
+//            BitmapFactory.Options options, int reqWidth, int reqHeight) {
+//        // Raw height and width of image
+//        final int height = options.outHeight;
+//        final int width = options.outWidth;
+//        int inSampleSize = 1;
+//
+//        if (height > reqHeight || width > reqWidth) {
+//
+//            final int halfHeight = height / 2;
+//            final int halfWidth = width / 2;
+//
+//            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+//            // height and width larger than the requested height and width.
+//            while ((halfHeight / inSampleSize) >= reqHeight
+//                    && (halfWidth / inSampleSize) >= reqWidth) {
+//                inSampleSize *= 2;
+//            }
+//        }
+//        return inSampleSize;
+//    }

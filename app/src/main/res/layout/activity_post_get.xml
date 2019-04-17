@@ -8,16 +8,42 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp"
         tools:context=".postGet">
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/imageView"
             android:layout_width="350dp"
             android:layout_height="550dp"
-            android:padding="16dp"/>
+            android:padding="16dp"
+            android:contentDescription="@string/displaying_selected_image"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:text="@string/put_request"
+                android:textAllCaps="true"
+                android:onClick="putRequest"
+                tools:ignore="ButtonStyle" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text="@string/initiate_processing"
+                android:textAllCaps="true"
+                android:onClick="initiateRequest"
+                tools:ignore="ButtonStyle"/>
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,34 +55,19 @@
                 android:layout_marginEnd="10dp"
                 android:text="@string/get_request"
                 android:textAllCaps="true"
-                android:onClick="getRequest"/>
+                android:onClick="getRequest"
+                tools:ignore="ButtonStyle"/>
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:text="@string/put_request"
+                android:text="@string/send_back"
                 android:textAllCaps="true"
-                android:onClick="putRequest"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:text="@string/initiate_processing"
-                android:textAllCaps="true"
-                android:onClick="initiateRequest"/>
-
-
+                android:onClick="sendBack"
+                tools:ignore="ButtonStyle"/>
 
         </LinearLayout>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/send_back"
-            android:textAllCaps="true"
-            android:onClick="sendBack"/>
 
         <TextView
             android:id="@+id/text_err_result"
@@ -72,7 +83,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:textColor="#000"/>
-
 
 
     </LinearLayout>

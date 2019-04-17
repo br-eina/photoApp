@@ -1,5 +1,6 @@
 package com.example.photoapp;
 
+@SuppressWarnings("WeakerAccess")
 public class Data {
 
     // Variables for JSON
@@ -10,11 +11,11 @@ public class Data {
         this.idIm = idIm;
         this.value = value;
     }
-
     public String getValue() {
         return value;
     }
 
+    @SuppressWarnings("unused")
     public String getIdIm() {
         return idIm;
     }

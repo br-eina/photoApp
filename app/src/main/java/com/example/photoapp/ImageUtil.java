@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.util.Base64;
 import java.io.ByteArrayOutputStream;
 
+@SuppressWarnings("WeakerAccess")
 public class ImageUtil
 {
     public static Bitmap convert(String base64Str) throws IllegalArgumentException

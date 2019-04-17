@@ -7,13 +7,12 @@ public class BitmapHelper {
     private Bitmap bitmap = null;
     private static final BitmapHelper instance = new BitmapHelper();
 
+    private BitmapHelper() {
+
+    }
 
     public static BitmapHelper getInstance() {
         return instance;
-    }
-
-    public BitmapHelper() {
-
     }
 
     public Bitmap getBitmap() {

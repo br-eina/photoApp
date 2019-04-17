@@ -9,4 +9,9 @@
     <string name="show_im">Show im</string>
     <string name="picasso">Picasso</string>
     <string name="send">Send</string>
+    <string name="get_request">Get request</string>
+    <string name="put_request">Put request</string>
+    <string name="initiate_processing">Initiate processing</string>
+    <string name="send_back">Send back</string>
+    <string name="x">X</string>
 </resources>

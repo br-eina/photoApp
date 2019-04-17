@@ -7,7 +7,7 @@
 
 ### 2. OPEN GALLERY
 * Sending intent to any picture provider (including gallery)
-* Showing selected image in ImageView (**fails with big images, needs resizing**)
+* Showing selected image in ImageView through *picasso* (resize)
 
 ### 3. ROTATE THE IMAGE
 * Rotating the image in ImageView clockwise (**TODO: custom rotation**)
@@ -18,8 +18,36 @@
 
 ### 5. SAVE
 * Saving image from ImageView to *internal_storage/saved_images/ * directory 
-* Naming the file as *shutta_TIMESTAMP.jpg* (**TODO: remake to normal name**)
+* Naming the file as *IMG_TIMESTAMP.jpg* 
 
-### 6. PICASSO
-* Opening the image from certain folder (**TODO: make intent to pick the image**)
-* Resizing it to certain size and displaying in ImageView 
+### 6. SEND
+* Sending image from ImageView to **postGet** activity
+* Displaying it in ImageView in **postGet** activity
+
+### 7. X
+* Displaying processed image in ImageView
+
+
+# postget
+
+### 1. GET REQUEST
+* Requesting base64 string from server in `{"value" : "base64_string"}` format
+* Decoding it
+* Showing decoded string (image) in ImageView
+
+### 2. PUT REQUEST
+* Encoding image from *drawable/* directory in the source of app to base64 string
+* Sending it to server in `{"value" : "base64_string"}` format
+
+### 3. INITIATE PROCESSING
+* Sending filler in `{"value" : "smth"}` format
+* That filler is initiating function to proccess the image
+
+### Steps of processing: 
+
+* Decoding base64 string from client to *.jpg*
+* Processing image (**look *form_processing***)
+* Encoding *.jpg* image to base64 string
+
+### 4. SEND BACK
+* Sending processed image from ImageView to **MainActivity** 

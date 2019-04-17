@@ -3,7 +3,7 @@
 ### 1. TAKE PHOTO AND SAVE
 * Requesting permissions for camera and access to the external storage
 * Sending intent for device camera app
-* Automatically saving the image to *picture/* directory (**to_fix**)
+* Automatically saving the image to *picture/* directory (**TODO: optional save**)
 
 ### 2. OPEN GALLERY
 * Sending intent to any picture provider (including gallery)
@@ -21,7 +21,7 @@
 * Displaying it in ImageView in **postGet** activity
 
 ### 6. X
-* Displaying processed image (which was sent from ** Post and get requests** activity) in ImageView
+* Displaying processed image (which was sent from **Post and get requests** activity) in ImageView
 
 
 # Post and get requests

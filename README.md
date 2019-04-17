@@ -30,24 +30,23 @@
 
 # postget
 
-### 1. GET REQUEST
+### 1. PUT REQUEST
+* Encoding image from ImageView (which was sent from **MainActivity**) to base64 string
+* Sending it to server in `{"value" : "base64_string"}` format
+
+### 2. INITIATE PROCESSING
+* Sending filler in `{"value" : "smth"}` format
+* That filler is initiating function to proccess the image
+
+### 3. GET REQUEST
 * Requesting base64 string from server in `{"value" : "base64_string"}` format
 * Decoding it
 * Showing decoded string (image) in ImageView
 
-### 2. PUT REQUEST
-* Encoding image from *drawable/* directory in the source of app to base64 string
-* Sending it to server in `{"value" : "base64_string"}` format
-
-### 3. INITIATE PROCESSING
-* Sending filler in `{"value" : "smth"}` format
-* That filler is initiating function to proccess the image
+### 4. SEND BACK
+* Sending processed image from ImageView to **MainActivity** 
 
 ### Steps of processing: 
-
 * Decoding base64 string from client to *.jpg*
 * Processing image (**look *form_processing***)
 * Encoding *.jpg* image to base64 string
-
-### 4. SEND BACK
-* Sending processed image from ImageView to **MainActivity** 

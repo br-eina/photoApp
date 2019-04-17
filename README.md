@@ -12,23 +12,19 @@
 ### 3. ROTATE THE IMAGE
 * Rotating the image in ImageView clockwise (**TODO: custom rotation**)
 
-### 4. SHOW IM
-* Showing big image from *drawable/* directory in the source of app
-* Resizing it to fit in ImageView (**TODO: refactor to *picasso* method**)
-
-### 5. SAVE
+### 4. SAVE
 * Saving image from ImageView to *internal_storage/saved_images/ * directory 
 * Naming the file as *IMG_TIMESTAMP.jpg* 
 
-### 6. SEND
+### 5. SEND
 * Sending image from ImageView to **postGet** activity
 * Displaying it in ImageView in **postGet** activity
 
-### 7. X
-* Displaying processed image in ImageView
+### 6. X
+* Displaying processed image (which was sent from ** Post and get requests** activity) in ImageView
 
 
-# postget
+# Post and get requests
 
 ### 1. PUT REQUEST
 * Encoding image from ImageView (which was sent from **MainActivity**) to base64 string

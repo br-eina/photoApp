@@ -1,95 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="8dp"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imgPicture"
-        android:layout_width="350dp"
-        android:layout_height="550dp"
-        android:padding="16dp"
-        android:contentDescription="@string/displaying_image"
-        />
 
-    <Button
-        android:id="@+id/btn1"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/imgPicture"
-        android:padding="16dp"
-        android:onClick="btnTakePhotoClicked"
-        android:text="@string/take_photo_and_save"
-        android:textAllCaps="true"/>
+        android:orientation="vertical"
+        android:padding="8dp"
+        tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/btn2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/btn1"
-        android:layout_below="@id/imgPicture"
-        android:padding="16dp"
-        android:onClick="btnOpenGalleryClicked"
-        android:text="@string/open_image_from_the_gallery"
-        android:textAllCaps="true"/>
+        <ImageView
+            android:id="@+id/imgPicture"
+            android:layout_width="350dp"
+            android:layout_height="550dp"
+            android:padding="16dp"
+            android:contentDescription="@string/displaying_image"
+            />
 
-    <Button
-        android:id="@+id/btn3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btn1"
-        android:padding="16dp"
-        android:onClick="btnRotate"
-        android:text="@string/rotate_the_image"
-        android:textAllCaps="true"/>
+        <Button
+            android:id="@+id/btn1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imgPicture"
+            android:padding="16dp"
+            android:onClick="btnTakePhotoClicked"
+            android:text="@string/take_photo_and_save"
+            android:textAllCaps="true"/>
 
-    <!--<Button-->
-        <!--android:id="@+id/btn4"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_toEndOf="@id/btn3"-->
-        <!--android:layout_below="@id/btn2"-->
-        <!--android:padding="16dp"-->
-        <!--android:onClick="btnShowIm"-->
-        <!--android:text="@string/show_im"-->
-        <!--android:textAllCaps="true"/>-->
+        <Button
+            android:id="@+id/btn2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/btn1"
+            android:layout_below="@id/imgPicture"
+            android:padding="16dp"
+            android:onClick="btnOpenGalleryClicked"
+            android:text="@string/open_image_from_the_gallery"
+            android:textAllCaps="true"/>
 
-    <Button
-        android:id="@+id/btn5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/btn3"
-        android:layout_below="@id/btn2"
-        android:padding="16dp"
-        android:onClick="btnSave"
-        android:text="@string/save"
-        android:textAllCaps="true"/>
+        <Button
+            android:id="@+id/btn3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn1"
+            android:padding="16dp"
+            android:onClick="btnRotate"
+            android:text="@string/rotate_the_image"
+            android:textAllCaps="true"/>
 
-    <Button
-        android:id="@+id/btn6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/btn5"
-        android:layout_below="@id/btn2"
-        android:padding="16dp"
-        android:onClick="btnSend"
-        android:text="@string/send"
-        android:textAllCaps="true"/>
+        <Button
+            android:id="@+id/btn5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/btn3"
+            android:layout_below="@id/btn2"
+            android:padding="16dp"
+            android:onClick="btnSave"
+            android:text="@string/save"
+            android:textAllCaps="true"/>
 
-    <Button
-        android:id="@+id/btn7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/btn2"
-        android:layout_below="@id/imgPicture"
-        android:padding="16dp"
-        android:onClick="showProcessed"
-        android:text="@string/x"/>
+        <Button
+            android:id="@+id/btn6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/btn5"
+            android:layout_below="@id/btn2"
+            android:padding="16dp"
+            android:onClick="btnSend"
+            android:text="@string/send"
+            android:textAllCaps="true"/>
+
+        <Button
+            android:id="@+id/btn7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/btn2"
+            android:layout_below="@id/imgPicture"
+            android:padding="16dp"
+            android:onClick="showProcessed"
+            android:text="@string/x"/>
 
 
+
+    </RelativeLayout>
+
+
+</ScrollView>
 
 
 
@@ -106,7 +107,16 @@
         <!--android:textAllCaps="true" />-->
 
 
-
+    <!--<Button-->
+    <!--android:id="@+id/btn4"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_toEndOf="@id/btn3"-->
+    <!--android:layout_below="@id/btn2"-->
+    <!--android:padding="16dp"-->
+    <!--android:onClick="btnShowIm"-->
+    <!--android:text="@string/show_im"-->
+    <!--android:textAllCaps="true"/>-->
 
 
     <!--<Button-->
@@ -121,4 +131,3 @@
 
 
 
-</RelativeLayout>

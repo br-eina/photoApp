@@ -19,5 +19,8 @@ public interface JsonPlaceHolderApi {
     @POST("initiate_processing")
     Call<Data> initiateProcessing(@Body Data data);
 
+    @GET("show_text_data")
+    Call<List<TextData>> getTextData();
+
 }
 

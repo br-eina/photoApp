@@ -21,7 +21,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class postGet extends AppCompatActivity {
-    //private TextView textViewResult;
+    private TextView textViewResult;
 
     private TextView textErrResult;
     private JsonPlaceHolderApi jsonPlaceHolderApi;
@@ -33,7 +33,7 @@ public class postGet extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_get);
 
-        //textViewResult = findViewById(R.id.text_view_result);
+        textViewResult = findViewById(R.id.text_view_result);
         //img1 = findViewById(R.id.img1);
         //bitmap1 = BitmapFactory.decodeResource(getResources(), R.drawable.heh);
 
@@ -49,7 +49,15 @@ public class postGet extends AppCompatActivity {
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+
+        Retrofit retrofit2 = new Retrofit.Builder()
+                .baseUrl("http://192.168.0.101:5000/")
+                .client(okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
         jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
+
     }
 
     final OkHttpClient okHttpClient = new OkHttpClient.Builder()
@@ -68,6 +76,42 @@ public class postGet extends AppCompatActivity {
 
     public void initiateRequest(View view) {
         initiateProcessing();
+    }
+
+    public void showJson(View view) {
+        getRecognizedText();
+    }
+
+    private void getRecognizedText(){
+
+        Call<List<TextData>> call = jsonPlaceHolderApi.getTextData();
+        call.enqueue(new Callback<List<TextData>>() {
+            @Override
+            public void onResponse(Call<List<TextData>> call, Response<List<TextData>> response) {
+                if (!response.isSuccessful()) {
+                    textViewResult.setText("Code: " + response.code());
+                    return;
+                }
+
+                List<TextData> list_of_textData = response.body();
+
+                for (TextData textData : list_of_textData) {
+                    String content = "";
+                    content += "title " + textData.getTitle() + "\n";
+                    content += "value " + textData.getValue() + "\n\n";
+
+                    textViewResult.append(content);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<TextData>> call, Throwable t) {
+                textViewResult.setText(t.getMessage());
+
+            }
+        });
+
     }
 
     private void getData() {
